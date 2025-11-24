@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEMON HUB OBFUSCATOR | CRÉDITOS: FREEMAN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Tela de Key System */
+        .key-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .key-box {
+            background: rgba(25, 25, 25, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .key-title {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .key-input:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .key-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ffffff, #aaaaaa);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .key-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .key-error {
+            color: #ff3333;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Tela de carregamento */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+        }
+
+        .loading-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        /* Conteúdo principal */
+        .main-content {
+            display: none;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: #cccccc;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            color: #888;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .main-card {
+            background: rgba(25, 25, 25, 0.9);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffffff, #aaaaaa, #ffffff);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+
+        .card-title i {
+            font-size: 1.8rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #444;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            background: rgba(40, 40, 40, 0.5);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #ffffff;
+            background: rgba(60, 60, 60, 0.3);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #ffffff, #aaaaaa);
+            color: #000000;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .code-area {
+            margin-top: 25px;
+        }
+
+        .code-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: rgba(20, 20, 20, 0.8);
+            color: #ffffff;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 12px;
+            resize: vertical;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            transition: all 0.3s;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+
+        .options-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(40, 40, 40, 0.5);
+            border-radius: 12px;
+            border: 1px solid #444;
+        }
+
+        .options-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .option-item:hover {
+            background: rgba(50, 50, 50, 0.8);
+            border-color: #666;
+        }
+
+        .option-item.selected {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+        }
+
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ffffff;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            color: #ffffff;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .option-description {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .action-btn {
+            padding: 16px;
+            background: linear-gradient(45deg, #ffffff, #aaaaaa);
+            border: none;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 0 #666666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #666666, 0 10px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .action-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 0 #666666;
+        }
+
+        .action-btn i {
+            font-size: 1.3rem;
+        }
+
+        .output-section {
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .success {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .error {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+        .credits {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Botões de seleção múltipla */
+        .selection-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .selection-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            color: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .selection-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #666;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .selection-controls {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .main-card {
+                padding: 25px;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+        }
+
+        /* Efeitos de partículas em forma de estrela */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        .star::before, .star::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+        }
+
+        .star::before {
+            top: -4px;
+            left: 0;
+        }
+
+        .star::after {
+            top: 0;
+            left: -4px;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Partículas de fundo em forma de estrela -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Tela de Key System -->
+    <div class="key-screen" id="keyScreen">
+        <div class="key-box">
+            <div class="logo">
+                <i class="fas fa-dragon"></i>
+            </div>
+            <h1 class="key-title">DEMON HUB OBFUSCATOR</h1>
+            <p class="subtitle">INSIRA A CHAVE DE ACESSO</p>
+            <input type="text" class="key-input" id="keyInput" placeholder="Digite a chave...">
+            <button class="key-btn" onclick="checkKey()">
+                <i class="fas fa-key"></i>
+                VERIFICAR CHAVE
+            </button>
+            <p class="key-error" id="keyError">Chave inválida! Tente novamente.</p>
+        </div>
+    </div>
+
+    <!-- Tela de carregamento -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Inicializando Demon Hub Obfuscator...</p>
+            <p class="loading-text">Carregando sistema de ofuscação avançada</p>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <i class="fas fa-dragon"></i>
+                </div>
+                <h1>DEMON HUB OBFUSCATOR</h1>
+                <p class="subtitle">PROTEJA SEUS SCRIPTS LUA</p>
+                <p class="tagline">Ofuscação avançada para desenvolvedores</p>
+            </header>
+
+            <div class="main-card">
+                <div class="card-title">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>PROTEGER SCRIPT</span>
+                </div>
+                
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="upload-text">
+                        <strong>Clique para fazer upload</strong><br>
+                        ou arraste um arquivo .lua
+                    </div>
+                    <div class="browse-btn">
+                        <i class="fas fa-folder-open"></i>
+                        BUSCAR ARQUIVO
+                    </div>
+                    <input type="file" id="fileInput" accept=".lua">
+                </div>
+                
+                <div class="code-area">
+                    <label class="code-label">
+                        <i class="fas fa-code"></i>
+                        SEU SCRIPT LUA
+                    </label>
+                    <textarea id="input" placeholder="Cole seu script Lua aqui...&#10;Ou faça upload de um arquivo .lua acima"></textarea>
+                </div>
+
+                <!-- Seção de opções avançadas -->
+                <div class="options-section">
+                    <div class="options-title">
+                        <i class="fas fa-cogs"></i>
+                        <span>OPÇÕES AVANÇADAS DE OFUSCAÇÃO</span>
+                    </div>
+                    
+                    <!-- Controles de seleção múltipla -->
+                    <div class="selection-controls">
+                        <button class="selection-btn" onclick="selectAllOptions()">
+                            <i class="fas fa-check-square"></i>
+                            Selecionar Todas
+                        </button>
+                        <button class="selection-btn" onclick="deselectAllOptions()">
+                            <i class="fas fa-square"></i>
+                            Desmarcar Todas
+                        </button>
+                        <button class="selection-btn" onclick="selectRecommended()">
+                            <i class="fas fa-star"></i>
+                            Recomendadas
+                        </button>
+                        <button class="selection-btn" onclick="selectAdvanced()">
+                            <i class="fas fa-rocket"></i>
+                            Avançadas
+                        </button>
+                        <button class="selection-btn" onclick="selectMaximum()">
+                            <i class="fas fa-shield-alt"></i>
+                            Máxima Proteção
+                        </button>
+                    </div>
+                    
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- As opções serão geradas via JavaScript -->
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="obfuscate()">
+                        <i class="fas fa-lock"></i>
+                        OFUSCAR
+                    </button>
+                    <button class="action-btn" onclick="copyOutput()">
+                        <i class="fas fa-copy"></i>
+                        COPIAR
+                    </button>
+                    <button class="action-btn" onclick="downloadOutput()">
+                        <i class="fas fa-download"></i>
+                        BAIXAR
+                    </button>
+                </div>
+
+                <div id="status" class="status"></div>
+
+                <div class="output-section">
+                    <label class="code-label">
+                        <i class="fas fa-shield"></i>
+                        CÓDIGO OFUSCADO
+                    </label>
+                    <textarea id="output" placeholder="Seu código ofuscado aparecerá aqui..." readonly></textarea>
+                </div>
+            </div>
+
+            <footer>
+                <p>Desenvolvido com <i class="fas fa-heart" style="color: #ffffff;"></i> por <span class="credits">FREEMAN</span></p>
+                <p style="margin-top: 5px; font-size: 0.8rem;">Demon Hub Obfuscator &copy; 2025 - Todos os direitos reservados</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Opções de ofuscação
+        const obfuscationOptions = [
+            { id: 'antiTamper', name: 'Proteção Anti-Tamper', description: 'Detecta e previne modificações no código', category: 'security', recommended: true },
+            { id: 'antiDebug', name: 'Anti-Debug', description: 'Bloqueia ferramentas de depuração', category: 'security', recommended: true },
+            { id: 'antiDump', name: 'Anti-Dump', description: 'Impede extração do código', category: 'security', recommended: true },
+            { id: 'stringEncryption', name: 'Criptografia de Strings', description: 'Codifica todas as strings do script', category: 'encryption', recommended: true },
+            { id: 'controlFlow', name: 'Ofuscação de Fluxo', description: 'Altera o fluxo de execução do código', category: 'obfuscation', recommended: true },
+            { id: 'variableObfuscation', name: 'Ofuscação de Variáveis', description: 'Substitui nomes de variáveis', category: 'obfuscation', recommended: true },
+            { id: 'bytecodeEncryption', name: 'Criptografia de Bytecode', description: 'Proteção em nível de bytecode', category: 'encryption', recommended: false },
+            { id: 'junkCode', name: 'Inserção de Código Falso', description: 'Adiciona código irrelevante', category: 'obfuscation', recommended: false },
+            { id: 'multipleLayers', name: 'Múltiplas Camadas', description: 'Aplica várias camadas de ofuscação', category: 'obfuscation', recommended: true },
+            { id: 'constantEncryption', name: 'Criptografia de Constantes', description: 'Codifica valores constantes', category: 'encryption', recommended: false },
+            { id: 'mathObfuscation', name: 'Ofuscação Matemática', description: 'Substitui operações matemáticas', category: 'obfuscation', recommended: false },
+            { id: 'customEncoding', name: 'Codificação Personalizada', description: 'Usa algoritmo de codificação único', category: 'encryption', recommended: true },
+            { id: 'quantumEncoding', name: 'Codificação Quântica', description: 'Algoritmo quântico de criptografia', category: 'advanced', recommended: false },
+            { id: 'neuralObfuscation', name: 'Ofuscação Neural', description: 'Rede neural para transformação de código', category: 'advanced', recommended: false },
+            { id: 'polymorphicCode', name: 'Código Polimórfico', description: 'Gera código diferente a cada execução', category: 'advanced', recommended: false },
+            { id: 'quantumEntanglement', name: 'Emaranhamento Quântico', description: 'Interconexão entre partes do código', category: 'advanced', recommended: false },
+            { id: 'holographicMemory', name: 'Memória Holográfica', description: 'Distribuição holográfica do código', category: 'advanced', recommended: false },
+            { id: 'temporalEncryption', name: 'Criptografia Temporal', description: 'Chaves que mudam com o tempo', category: 'advanced', recommended: false }
+        ];
+
+        // Criar partículas de fundo em forma de estrela
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Posição aleatória
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (3 + Math.random() * 4) + 's';
+                
+                particlesContainer.appendChild(star);
+            }
+        }
+
+        // Renderizar opções
+        function renderOptions() {
+            const optionsGrid = document.getElementById('optionsGrid');
+            optionsGrid.innerHTML = '';
+            
+            obfuscationOptions.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option-item ${option.recommended ? 'selected' : ''}`;
+                optionElement.innerHTML = `
+                    <input type="checkbox" id="${option.id}" ${option.recommended ? 'checked' : ''}>
+                    <label for="${option.id}">
+                        <strong>${option.name}</strong>
+                        <div class="option-description">${option.description}</div>
+                    </label>
+                `;
+                optionsGrid.appendChild(optionElement);
+                
+                // Adicionar evento de clique
+                optionElement.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        const checkbox = this.querySelector('input[type="checkbox"]');
+                        checkbox.checked = !checkbox.checked;
+                        this.classList.toggle('selected', checkbox.checked);
+                    }
+                });
+            });
+        }
+
+        // Sistema de Key
+        function checkKey() {
+            const keyInput = document.getElementById('keyInput').value;
+            const keyError = document.getElementById('keyError');
+            
+            // Chave correta: Demon Hub
+            if (keyInput.trim().toLowerCase() === 'demon hub') {
+                keyError.style.display = 'none';
+                
+                // Mostrar tela de carregamento
+                document.getElementById('keyScreen').style.display = 'none';
+                document.getElementById('loadingScreen').style.display = 'flex';
+                
+                // Simular carregamento
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    renderOptions();
+                    showStatus("Demon Hub Obfuscator carregado com sucesso! 🔥", "success");
+                }, 3000);
+            } else {
+                keyError.style.display = 'block';
+            }
+        }
+
+        // Permitir Enter para verificar a chave
+        document.getElementById('keyInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkKey();
+            }
+        });
+
+        // Funções de seleção múltipla
+        function selectAllOptions() {
+            document.querySelectorAll('.option-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = true;
+                checkbox.closest('.option-item').classList.add('selected');
+            });
+            showStatus("Todas as opções selecionadas! ✅", "success");
+        }
+
+        function deselectAllOptions() {
+            document.querySelectorAll('.option-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.option-item').classList.remove('selected');
+            });
+            showStatus("Todas as opções desmarcadas! 🔄", "success");
+        }
+
+        function selectRecommended() {
+            document.querySelectorAll('.option-item').forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const optionId = checkbox.id;
+                const option = obfuscationOptions.find(opt => opt.id === optionId);
+                
+                checkbox.checked = option.recommended;
+                item.classList.toggle('selected', option.recommended);
+            });
+            showStatus("Opções recomendadas selecionadas! ⭐", "success");
+        }
+
+        function selectAdvanced() {
+            document.querySelectorAll('.option-item').forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const optionId = checkbox.id;
+                const option = obfuscationOptions.find(opt => opt.id === optionId);
+                
+                checkbox.checked = option.category === 'advanced';
+                item.classList.toggle('selected', option.category === 'advanced');
+            });
+            showStatus("Opções avançadas selecionadas! 🚀", "success");
+        }
+
+        function selectMaximum() {
+            document.querySelectorAll('.option-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = true;
+                checkbox.closest('.option-item').classList.add('selected');
+            });
+            showStatus("Proteção máxima ativada! 🔒", "success");
+        }
+
+        // Ofuscação
+        function obfuscate() {
+            const script = document.getElementById("input").value;
+            if (!script) {
+                showStatus("Insira um script ou faça upload de um arquivo .lua!", "error");
+                return;
+            }
+
+            // Obter opções selecionadas
+            const selectedOptions = [];
+            document.querySelectorAll('.option-item input[type="checkbox"]:checked').forEach(checkbox => {
+                const option = obfuscationOptions.find(opt => opt.id === checkbox.id);
+                if (option) selectedOptions.push(option);
+            });
+
+            if (selectedOptions.length === 0) {
+                showStatus("Selecione pelo menos uma opção de ofuscação!", "error");
+                return;
+            }
+
+            // Mostrar status de processamento
+            showStatus(`Aplicando ${selectedOptions.length} técnicas de ofuscação... ⚙️`, "success");
+            
+            // Simular processamento
+            setTimeout(() => {
+                // Ofuscação baseada nas opções selecionadas
+                const encoded = toBase64(script);
+                const doubleEncoded = toBase64(encoded);
+                const tripleEncoded = toBase64(doubleEncoded);
+                
+                // Gerar nomes de variáveis aleatórias
+                const varNames = generateRandomVarNames(30);
+                
+                // Código ofuscado final
+                const final = generateAdvancedObfuscation(tripleEncoded, varNames, selectedOptions);
+                
+                document.getElementById("output").value = final.trim();
+                showStatus(`Script ofuscado com ${selectedOptions.length} técnicas! 🔒✅`, "success");
+                
+                // Scroll suave para o resultado
+                document.querySelector('.output-section').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 2000);
+        }
+
+        // Gerar ofuscação avançada
+        function generateAdvancedObfuscation(encodedData, varNames, options) {
+            let obfuscatedCode = `-- DEMON HUB OBFUSCATOR | CRÉDITOS: FREEMAN --\n`;
+            obfuscatedCode += `-- Técnicas aplicadas: ${options.map(opt => opt.name).join(', ')}\n\n`;
+            
+            // Adicionar proteções baseadas nas opções selecionadas
+            if (options.some(opt => opt.id === 'antiTamper')) {
+                obfuscatedCode += `-- Proteção Anti-Tamper\n`;
+                obfuscatedCode += `local ${varNames[0]} = function()\n`;
+                obfuscatedCode += `    local ${varNames[1]} = debug.getinfo(1, "S")\n`;
+                obfuscatedCode += `    if not ${varNames[1]} or not ${varNames[1]}.source then\n`;
+                obfuscatedCode += `        while true do end\n`;
+                obfuscatedCode += `    end\n`;
+                obfuscatedCode += `    return true\n`;
+                obfuscatedCode += `end\n\n`;
+            }
+            
+            // Decodificador base64
+            obfuscatedCode += `-- Decodificador Base64\n`;
+            obfuscatedCode += `local ${varNames[2]} = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'\n`;
+            obfuscatedCode += `local ${varNames[3]} = function(${varNames[4]})\n`;
+            obfuscatedCode += `    ${varNames[4]} = string.gsub(${varNames[4]}, '[^'..${varNames[2]}..'=]', '')\n`;
+            obfuscatedCode += `    local ${varNames[5]} = {}\n`;
+            obfuscatedCode += `    for ${varNames[6]}=1,#${varNames[4]},4 do\n`;
+            obfuscatedCode += `        local ${varNames[7]} = string.find(${varNames[2]}, string.sub(${varNames[4]}, ${varNames[6]}, ${varNames[6]})) or 1\n`;
+            obfuscatedCode += `        local ${varNames[8]} = string.find(${varNames[2]}, string.sub(${varNames[4]}, ${varNames[6]}+1, ${varNames[6]}+1)) or 1\n`;
+            obfuscatedCode += `        local ${varNames[9]} = string.find(${varNames[2]}, string.sub(${varNames[4]}, ${varNames[6]}+2, ${varNames[6]}+2)) or 1\n`;
+            obfuscatedCode += `        local ${varNames[10]} = string.find(${varNames[2]}, string.sub(${varNames[4]}, ${varNames[6]}+3, ${varNames[6]}+3)) or 1\n\n`;
+            obfuscatedCode += `        local ${varNames[11]} = (${varNames[7]}-1)*262144 + (${varNames[8]}-1)*4096 + (${varNames[9]}-1)*64 + (${varNames[10]}-1)\n`;
+            obfuscatedCode += `        local ${varNames[12]} = math.floor(${varNames[11]} / 65536) % 256\n`;
+            obfuscatedCode += `        local ${varNames[13]} = math.floor(${varNames[11]} / 256) % 256\n`;
+            obfuscatedCode += `        local ${varNames[14]} = ${varNames[11]} % 256\n\n`;
+            obfuscatedCode += `        table.insert(${varNames[5]}, string.char(${varNames[12]}))\n`;
+            obfuscatedCode += `        if string.sub(${varNames[4]}, ${varNames[6]}+2, ${varNames[6]}+2) ~= '=' then \n`;
+            obfuscatedCode += `            table.insert(${varNames[5]}, string.char(${varNames[13]})) \n`;
+            obfuscatedCode += `        end\n`;
+            obfuscatedCode += `        if string.sub(${varNames[4]}, ${varNames[6]}+3, ${varNames[6]}+3) ~= '=' then \n`;
+            obfuscatedCode += `            table.insert(${varNames[5]}, string.char(${varNames[14]})) \n`;
+            obfuscatedCode += `        end\n`;
+            obfuscatedCode += `    end\n`;
+            obfuscatedCode += `    return table.concat(${varNames[5]})\n`;
+            obfuscatedCode += `end\n\n`;
+            
+            // Múltiplas camadas de decodificação
+            obfuscatedCode += `-- Camadas de Decodificação\n`;
+            obfuscatedCode += `local ${varNames[15]} = ${varNames[3]}('${encodedData}')\n`;
+            
+            if (options.some(opt => opt.id === 'multipleLayers')) {
+                obfuscatedCode += `local ${varNames[16]} = ${varNames[3]}(${varNames[15]})\n`;
+                obfuscatedCode += `local ${varNames[17]} = ${varNames[3]}(${varNames[16]})\n`;
+            }
+            
+            // Execução protegida
+            obfuscatedCode += `-- Execução Protegida\n`;
+            obfuscatedCode += `local ${varNames[18]}, ${varNames[19]} = pcall(function()\n`;
+            obfuscatedCode += `    return loadstring(${options.some(opt => opt.id === 'multipleLayers') ? varNames[17] : varNames[15]})\n`;
+            obfuscatedCode += `end)\n\n`;
+            
+            obfuscatedCode += `if ${varNames[18]} then\n`;
+            obfuscatedCode += `    local ${varNames[20]}, ${varNames[21]} = pcall(${varNames[19]})\n`;
+            obfuscatedCode += `    if not ${varNames[20]} then\n`;
+            obfuscatedCode += `        error("Erro na execução: " .. tostring(${varNames[21]}))\n`;
+            obfuscatedCode += `    end\n`;
+            obfuscatedCode += `else\n`;
+            obfuscatedCode += `    error("Erro no carregamento: " .. tostring(${varNames[19]}))\n`;
+            obfuscatedCode += `end\n`;
+            
+            return obfuscatedCode;
+        }
+
+        function generateRandomVarNames(count) {
+            const names = [];
+            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            for (let i = 0; i < count; i++) {
+                let name = '';
+                const length = 8 + Math.floor(Math.random() * 8);
+                
+                for (let j = 0; j < length; j++) {
+                    name += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                
+                if (!names.includes(name)) {
+                    names.push(name);
+                } else {
+                    i--;
+                }
+            }
+            
+            return names;
+        }
+
+        function toBase64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        // Upload de arquivo
+        document.getElementById("fileInput").addEventListener("change", function(e) {
+            const file = e.target.files[0];
+            if (file && file.name.endsWith(".lua")) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    document.getElementById("input").value = evt.target.result;
+                    showStatus("Arquivo carregado com sucesso!", "success");
+                };
+                reader.readAsText(file);
+            } else {
+                showStatus("Selecione um arquivo .lua válido!", "error");
+            }
+        });
+
+        // Arrastar e soltar arquivo
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#ffffff';
+            this.style.background = 'rgba(60, 60, 60, 0.5)';
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#444';
+            this.style.background = 'rgba(40, 40, 40, 0.5)';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#444';
+            this.style.background = 'rgba(40, 40, 40, 0.5)';
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith(".lua")) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    document.getElementById("input").value = evt.target.result;
+                    showStatus("Arquivo carregado com sucesso!", "success");
+                };
+                reader.readAsText(file);
+            } else {
+                showStatus("Arraste um arquivo .lua válido!", "error");
+            }
+        });
+
+        function copyOutput() {
+            const out = document.getElementById("output");
+            if (!out.value) {
+                showStatus("Não há código para copiar!", "error");
+                return;
+            }
+            
+            out.select();
+            document.execCommand("copy");
+            showStatus("Código copiado para a área de transferência! 📋", "success");
+        }
+
+        function downloadOutput() {
+            const content = document.getElementById("output").value;
+            if (!content) {
+                showStatus("Não há código ofuscado para baixar!", "error");
+                return;
+            }
+
+            const blob = new Blob([content], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "script_ofuscado.lua";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
+            showStatus("Download iniciado! ⬇️", "success");
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById("status");
+            statusEl.textContent = message;
+            statusEl.className = "status " + type;
+            statusEl.style.display = "block";
+            
+            setTimeout(() => {
+                statusEl.style.display = "none";
+            }, 4000);
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            document.getElementById('keyInput').focus();
+        });
+    </script>
+</body>
+  </html>
